@@ -1,18 +1,36 @@
 <%- include('../components/PartialHead')%>
-<body>
-    <div class="container">
-        <h1> HOME </h1> <br>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt deserunt nostrum tenetur culpa praesentium maiores? Explicabo maxime ducimus minus fugiat dolorum est deserunt laborum corporis quidem animi, ex cum eum.
-        Quisquam unde aut nihil, obcaecati distinctio qui eveniet debitis expedita autem cum delectus dolorem, suscipit porro neque laborum magnam repellat dolorum corporis. Sequi recusandae expedita blanditiis. Laudantium laborum doloremque voluptas?
-        Quos illum harum dicta qui saepe ex exercitationem laudantium et non repellat sunt corrupti fugit repellendus quae cupiditate vitae necessitatibus ad veniam accusamus fugiat esse nulla, impedit placeat? Eius, nesciunt!
-        Autem, optio dicta consectetur illum assumenda a veniam. Neque reiciendis repudiandae dolores exercitationem fugiat sapiente fuga hic accusamus doloribus, eaque soluta id quibusdam. Architecto nemo eveniet totam hic facilis blanditiis.
-        Natus consequuntur nesciunt quibusdam, eius ratione aliquam! Exercitationem iure laudantium autem expedita possimus odio ex neque eveniet harum, totam est eum optio perferendis, tempora aperiam fuga temporibus ullam modi alias.
-        Quisquam, nulla vitae est iste tenetur perferendis corporis, eveniet doloremque nostrum praesentium natus sit veritatis ea itaque maiores, architecto quibusdam illo ducimus voluptatem necessitatibus ipsam possimus! Possimus cupiditate natus reiciendis.
-        Eligendi esse harum inventore cupiditate eveniet repudiandae, amet aspernatur corrupti vitae eius dicta nihil voluptas ipsam, voluptatum numquam laborum iste doloremque accusantium odio, alias ut nesciunt temporibus eos. Culpa, porro!
-        Ad reprehenderit ullam possimus in cupiditate perspiciatis tenetur nam quis, necessitatibus maxime facere tempora unde a. Cum minus, voluptatibus perspiciatis officia sapiente unde. Ipsa delectus saepe dolorem quia quos necessitatibus.
-        Eveniet, impedit eius aliquam ipsa corporis quam magnam ipsum sed voluptates sequi atque hic quia repellat vel quod est neque perspiciatis aperiam necessitatibus! Error voluptate expedita, ea amet laborum esse?
-        Nisi sed incidunt voluptatum provident ad eligendi illum, iusto, voluptas ipsam ipsum nemo sint hic blanditiis accusantium possimus porro harum tempore ab illo omnis quisquam, minus ipsa est quia? Veritatis!
+<body class="container-lg mx-auto">
+    <div class="breadcrumb m-0">
+        <span class="breadcrumb-item py-3 text-5xl font-bold"> Products </span> 
     </div>
+    <ul class="flex justify-start flex-wrap">
+        <% items.forEach(item => { %>
+            <li class="w-25 p-2 rounded-lg hover:cursor-pointer hover:outline outline-2 outline-offset-2">
+                <a href="/product/<%= item.id %>" class="text-black flex flex-col p-2">
+                    <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
+                    <span class="text-4xl text-center font-bold"> <%= item.name %> </span>
+                    <span class="text-xl text-start ms-10"> <%= item.desc %> </span>
+                    <span class="text-2xl text-start ms-10"> <%= item.price %> </span>
+                </a>
+                <div class="flex px-5">
+                    <div class="w-75 text-center bg-dark hover:!bg-white text-white hover:!text-black outline me-2 rounded-lg">
+                        <button class="text-xl p-1 "> 
+                            BUY NOW 
+                        </button>
+                    </div>
+                    <form action="/add-to-cart" method="post" class="w-25 text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
+                        <input type="hidden" name="itemID" id="itemID" value="<%= item.id %>">
+                        <input type="hidden" name="itemName" id="itemName" value="<%= item.name %>">
+                        <input type="hidden" name="itemPrice" id="itemPrice" value="<%= item.price %>">
+                        <input type="hidden" name="itemQty" id="itemQty" value="1">
+                        <button class="text-xl p-1">
+                            <i class="fal fa-cart-arrow-down"></i>
+                        </button>
+                    </form>
+                </div>
+            </li>
+        <% }) %>
+    </ul>
 </body>
 <%- include('../components/PartialFooter')%>
 
