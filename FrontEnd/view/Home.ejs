@@ -1,5 +1,5 @@
 <%- include('../components/PartialHead')%>
-<body class="container-lg mx-auto">
+<body class="container-lg mx-auto pb-5">
     <div class="breadcrumb m-0">
         <span class="breadcrumb-item py-3 text-5xl font-bold"> Products </span> 
     </div>
@@ -8,9 +8,9 @@
             <li class="w-25 p-2 rounded-lg hover:cursor-pointer hover:outline outline-2 outline-offset-2">
                 <a href="/product/<%= item.id %>" class="text-black flex flex-col p-2">
                     <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
-                    <span class="text-4xl text-center font-bold"> <%= item.name %> </span>
+                    <span id="itemName" class="text-4xl text-center font-bold"> <%= item.name %> </span>
                     <span class="text-xl text-start ms-10"> <%= item.desc %> </span>
-                    <span class="text-2xl text-start ms-10"> <%= item.price %> </span>
+                    <span class="text-2xl text-start ms-10"> $<%= item.price %> </span>
                 </a>
                 <div class="flex px-5">
                     <div class="w-75 text-center bg-dark hover:!bg-white text-white hover:!text-black outline me-2 rounded-lg">
@@ -18,19 +18,47 @@
                             BUY NOW 
                         </button>
                     </div>
-                    <form action="/add-to-cart" method="post" class="w-25 text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
-                        <input type="hidden" name="itemID" id="itemID" value="<%= item.id %>">
-                        <input type="hidden" name="itemName" id="itemName" value="<%= item.name %>">
-                        <input type="hidden" name="itemPrice" id="itemPrice" value="<%= item.price %>">
-                        <input type="hidden" name="itemQty" id="itemQty" value="1">
-                        <button class="text-xl p-1">
+                    <div class="w-25 text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
+                        <button class="addToCartBtn text-xl py-1 px-2"
+                            data-id="<%=item.id%>" 
+                            data-name="<%=item.name%>"
+                            data-qty="1"
+                            data-img="<%=item.image%>"
+                            data-price="<%=item.price%>"
+                            data-ttl="<%=item.price%>"
+                        >
                             <i class="fal fa-cart-arrow-down"></i>
                         </button>
-                    </form>
+                    </div>
                 </div>
             </li>
         <% }) %>
     </ul>
 </body>
+<script>
+    $(function() {
+        $(".addToCartBtn").on('click', function() {
+            var itemID = $(this).data('id')
+            var itemImg = $(this).data('img')
+            var itemQty = $(this).data('qty')
+            var itemTtl = $(this).data('ttl')
+            var itemPrice = $(this).data('price')
+            var itemName = $(this).data('name')
+
+            $.ajax({
+                type: 'POST',
+                url: '/add-to-cart',
+                data: {
+                    itemID: itemID,
+                    itemImg: itemImg,
+                    itemQty: itemQty,
+                    itemTtl: itemTtl,
+                    itemPrice: itemPrice,
+                    itemName: itemName
+                }
+            })
+        })
+    })
+</script>
 <%- include('../components/PartialFooter')%>
 

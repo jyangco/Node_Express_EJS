@@ -3,25 +3,25 @@ const items = [
         name: 'Item 1', 
         image: 'item.jpg',
         desc: 'Brief description',
-        price: '$5' 
+        price: 5 
     },
     {   id: 2, 
         name: 'Item 2', 
         image: 'item.jpg',
         desc: 'Brief description',
-        price: '$10' 
+        price: 10
     },
     {   id: 3, 
         name: 'Item 3', 
         image: 'item.jpg',
         desc: 'Brief description',
-        price: '$15' 
+        price: 15
     },
     {   id: 4, 
         name: 'Item 4', 
         image: 'item.jpg',
         desc: 'Brief description',
-        price: '$20' 
+        price: 20 
     },
 ]
 

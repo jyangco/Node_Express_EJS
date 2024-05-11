@@ -1,8 +1,73 @@
 <%- include('../components/PartialHead')%>
-<body class="container-lg mx-auto">
+<body class="container-lg mx-auto pb-5">
     <div class="breadcrumb m-0">
         <span class="breadcrumb-item py-3 text-5xl font-bold"> My Cart </span> 
     </div>
-    <% console.log(cartItems) %>
+    <div class="flex">
+        <div class="w-75 px-2">
+            <div class="card p-3">
+                <div class="card-header bg-white pb-3 px-3">
+                    <div class="inline-flex w-100">
+                        <div class="w-[50%]">
+                            Product
+                        </div>
+                        <div class="w-[10%] text-center">
+                            Price
+                        </div>
+                        <div class="w-[20%] text-center">
+                            Quantity
+                        </div>
+                        <div class="w-[20%] text-center">
+                            Total
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <% cartItems.forEach(item => { %>
+                        <div class="inline-flex w-100 px-2 py-4">
+                            <div class="w-[50%]">
+                                <div class="flex">
+                                    <div class="w-50">
+                                        <img class="w-[50px] h-[50px] mx-auto" src="<%= item.image %>" alt="<%= item.name %>">
+                                    </div>
+                                    <div class="w-50 text-2xl self-center font-bold">
+                                        <%= item.name %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-[10%] text-center text-lg self-center">
+                                $<%= item.price %>
+                            </div>
+                            <div class="w-[20%] text-center text-lg self-center">
+                                <%= item.quantity %>
+                            </div>
+                            <div class="w-[20%] text-center text-lg self-center">
+                                $<%= item.total%>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+        <div class="w-25 px-2">
+            <div class="card p-3">
+                <p class="text-lg font-bold"> Delivery Details: </p>
+                <p class="text-lg italic"> *Items will be delivered 2-3 days upon order completion </p>
+                <hr class="my-4">
+                <span class="text-2xl font-bold"> 
+                    <% 
+                        let sum = 0
+                        cartItems.forEach(item => {
+                            sum += item.total
+                        })
+                    %>
+                    Cart Total: <span class="float-right"> $<%= sum %> </span>
+                </span>
+                <button class="btn text-xl bg-warning rounded-full font-normal text-white my-3 hover:!bg-slate-700 hover:!text-white">
+                    Proceed to check out
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 <%- include('../components/PartialFooter')%>
