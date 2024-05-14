@@ -5,9 +5,8 @@ const ItemsController = require("../controllers/ItemsController")
 const CartController = require("../controllers/CartController")
 
 routes.get('/', ItemsController.index)
-routes.get('/product/:id', ItemsController.show)
-
-routes.get('/my-cart', CartController.index)
+routes.get('/product-:id', ItemsController.show)
+routes.get('/my-cart', CartController.showAll)
 routes.post('/add-to-cart', CartController.addToCart)
 
 module.exports = routes

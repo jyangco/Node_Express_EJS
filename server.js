@@ -1,15 +1,21 @@
 const express = require("express")
-const routes = require('./BackEnd/routes/router')
-
 const app = express()
 const port = 3000
+
+const routes = require('./BackEnd/routes/router')
+
+const path  = require("path")
+const directory = path.join(__dirname, './FrontEnd/assets')
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.set('view engine', 'ejs')
 
-app.use(express.static('./FrontEnd/assets'))
+app.use(express.static(directory))
+// app.get('/my-cart', function(req, res) {
+//     res.send('users')
+// })
 app.use(routes)
 
 app.listen(port, () => {

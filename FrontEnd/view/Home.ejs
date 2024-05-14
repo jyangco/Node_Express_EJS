@@ -6,7 +6,7 @@
     <ul class="flex justify-start flex-wrap">
         <% items.forEach(item => { %>
             <li class="w-25 p-2 rounded-lg hover:cursor-pointer hover:outline outline-2 outline-offset-2">
-                <a href="/product/<%= item.id %>" class="text-black flex flex-col p-2">
+                <a href="/product-<%= item.id %>" class="text-black flex flex-col p-2">
                     <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
                     <span id="itemName" class="text-4xl text-center font-bold"> <%= item.name %> </span>
                     <span class="text-xl text-start ms-10"> <%= item.desc %> </span>
@@ -35,30 +35,6 @@
         <% }) %>
     </ul>
 </body>
-<script>
-    $(function() {
-        $(".addToCartBtn").on('click', function() {
-            var itemID = $(this).data('id')
-            var itemImg = $(this).data('img')
-            var itemQty = $(this).data('qty')
-            var itemTtl = $(this).data('ttl')
-            var itemPrice = $(this).data('price')
-            var itemName = $(this).data('name')
-
-            $.ajax({
-                type: 'POST',
-                url: '/add-to-cart',
-                data: {
-                    itemID: itemID,
-                    itemImg: itemImg,
-                    itemQty: itemQty,
-                    itemTtl: itemTtl,
-                    itemPrice: itemPrice,
-                    itemName: itemName
-                }
-            })
-        })
-    })
-</script>
+<script src="/scripts.js"></script>
 <%- include('../components/PartialFooter')%>
 

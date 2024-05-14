@@ -3,9 +3,9 @@ const CartModel = require('../models/CartModel')
 const CartPage = path.join(__dirname, '../../FrontEnd/view/MyCart')
 
 module.exports = {
-    index: (req, res) => {
+    showAll: (req, res) => {
         const cartItems = CartModel.findAll()
-        res.render(CartPage, { cartItems })
+        res.render(CartPage, {cartItems} )
     },
     addToCart: (req, res) => {
         const { itemID, itemImg, itemName, itemPrice, itemQty, itemTtl } = req.body
