@@ -8,5 +8,6 @@ routes.get('/', ItemsController.index)
 routes.get('/product-:id', ItemsController.show)
 routes.get('/my-cart', CartController.showAll)
 routes.post('/add-to-cart', CartController.addToCart)
+routes.post('/cart-quantity', CartController.updateCart)
 
 module.exports = routes

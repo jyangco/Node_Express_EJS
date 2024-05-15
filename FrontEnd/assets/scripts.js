@@ -1,6 +1,7 @@
 //Add to cart function
 $(function() {
-    $(".addToCartBtn").on('click', function() {
+    let numberOfItems = $('#NumOfItems').text()
+    $('.addToCartBtn').on('click', function() {
         var itemID = $(this).data('id')
         var itemImg = $(this).data('img')
         var itemQty = $(this).data('qty')
@@ -18,7 +19,11 @@ $(function() {
                 itemTtl: itemTtl,
                 itemPrice: itemPrice,
                 itemName: itemName
-            }
+            },
+            success: function(response) {
+                numberOfItems++
+                $('#NumOfItems').text(numberOfItems)
+            },
         })
     })
 })
@@ -73,3 +78,25 @@ $(function() {
     })
 })
 
+//Adding more quantity for items on the cart
+$(function() {
+    let totalPrice = $('#ttl').text()
+    let itemQty = $('#qty').text()
+    $('#incrementCrt').click(function () {
+        var itemID = $(this).data('id')
+        var qty = $(this).data('qty')
+        var price = $(this).data('price')
+        itemQty++
+        qty = itemQty
+        totalPrice = qty*price
+        $.ajax({                        
+            url: '/cart-quantity',
+            type: 'POST',
+            data: { id: itemID, quantity: qty, total: totalPrice },
+            success: function(response) {
+                $('#qty').text(itemQty)
+                $('#ttl').text(totalPrice)
+            },
+        })
+    })
+})

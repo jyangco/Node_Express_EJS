@@ -38,11 +38,13 @@
                             <div class="w-[10%] text-center text-lg self-center">
                                 $<%= item.price %>
                             </div>
-                            <div class="w-[20%] text-center text-lg self-center">
-                                <%= item.quantity %>
+                            <div class="w-[20%] text-center self-center text-lg flex justify-center">
+                                <button data-id="<%= item.id %>" data-qty="<%= item.quantity %>" data-price="<%= item.price %>" id="decrementCrt" class="rounded-l-full text-lg font-bold bg-slate-200 self-center px-4">-</button>
+                                <span id="qty" class="bg-slate-100 px-2"> <%= item.quantity %> </span>
+                                <button data-id="<%= item.id %>" data-qty="<%= item.quantity %>" data-price="<%= item.price %>" id="incrementCrt" class="rounded-r-full text-lg font-bold bg-slate-200 self-center px-4">+</button>
                             </div>
-                            <div class="w-[20%] text-center text-lg self-center">
-                                $<%= item.total%>
+                            <div  class="w-[20%] text-center text-lg self-center">
+                                $ <span id="ttl"> <%= item.total%> </span>
                             </div>
                         </div>
                     <% }) %>
@@ -61,7 +63,7 @@
                             sum += item.total
                         })
                     %>
-                    Cart Total: <span class="float-right"> $<%= sum %> </span>
+                    Cart Total: <span id="sum" class="float-right"> $<%= sum %> </span>
                 </span>
                 <button class="btn text-xl bg-warning rounded-full font-normal text-white my-3 hover:!bg-slate-700 hover:!text-white">
                     Proceed to check out
@@ -70,4 +72,5 @@
         </div>
     </div>
 </body>
+<script src="/scripts.js"></script>
 <%- include('../components/PartialFooter')%>

@@ -8,8 +8,14 @@
                 <a class="nav-link font-bold fs-5 text-white" href="/my-cart">
                     My Cart 
                     <i class="far fa-shopping-cart inline-flex">
-                        <div id="count" class="text-xs text-white px-1 rounded-circle bg-danger mt-2 -ms-1">
-                            <%= cartItems.length %>
+                        <div class="text-xs text-white px-1 rounded-circle bg-danger mt-2 -ms-1">
+                            <% 
+                                let NumOfCartItems = 0
+                                cartItems.forEach(item => {
+                                    NumOfCartItems += item.quantity
+                                })
+                            %>
+                            <span id="NumOfItems"> <%= NumOfCartItems %> </span>
                         </div>
                     </i>
                 </a>

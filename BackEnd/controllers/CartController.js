@@ -18,5 +18,11 @@ module.exports = {
             total: parseInt(itemTtl)
         }
         CartModel.addToCart(newCartItem)
-    }
+        res.json({ message: 'Item added to cart successfully'})
+    },
+    updateCart: (req, res) => {
+        const { id, quantity, total } = req.body
+        const cartItems = CartModel.updateCart(id, quantity, total)
+        res.json( cartItems )
+    },
 }
