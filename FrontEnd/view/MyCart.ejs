@@ -22,8 +22,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <% cartItems.forEach(item => { %>
+                <div id="cartContainer" class="card-body">
+                    <% cartItems.forEach((item, ndx) => { %>
                         <div class="inline-flex w-100 px-2 py-4">
                             <div class="w-[50%]">
                                 <div class="flex">
@@ -39,9 +39,28 @@
                                 $<%= item.price %>
                             </div>
                             <div class="w-[20%] text-center self-center text-lg flex justify-center">
-                                <button data-id="<%= item.id %>" data-qty="<%= item.quantity %>" data-price="<%= item.price %>" id="decrementCrt" class="rounded-l-full text-lg font-bold bg-slate-200 self-center px-4">-</button>
+                                <button class="rounded-l-full text-lg font-bold bg-slate-200 self-center px-4"
+                                    id="decrementCrt"
+                                    data-id="<%=item.id%>" 
+                                    data-name="<%=item.name%>"
+                                    data-qty=""
+                                    data-img="<%=item.image%>"
+                                    data-price="<%=item.price%>"
+                                    data-ttl="<%=item.price%>">
+                                        -
+                                </button>
                                 <span id="qty" class="bg-slate-100 px-2"> <%= item.quantity %> </span>
-                                <button data-id="<%= item.id %>" data-qty="<%= item.quantity %>" data-price="<%= item.price %>" id="incrementCrt" class="rounded-r-full text-lg font-bold bg-slate-200 self-center px-4">+</button>
+                                <button class="rounded-r-full text-lg font-bold bg-slate-200 self-center px-4"
+                                    id="incrementCrt"
+                                    data-index="<%= ndx %>"
+                                    data-id="<%=item.id%>" 
+                                    data-name="<%=item.name%>"
+                                    data-qty=""
+                                    data-img="<%=item.image%>"
+                                    data-price="<%=item.price%>"
+                                    data-ttl="<%=item.price%>">
+                                        +
+                                </button>
                             </div>
                             <div  class="w-[20%] text-center text-lg self-center">
                                 $ <span id="ttl"> <%= item.total%> </span>
@@ -63,7 +82,7 @@
                             sum += item.total
                         })
                     %>
-                    Cart Total: <span id="sum" class="float-right"> $<%= sum %> </span>
+                    Cart Total: <span class="float-right"> $<span id="sum"> <%= sum %> </span> </span>
                 </span>
                 <button class="btn text-xl bg-warning rounded-full font-normal text-white my-3 hover:!bg-slate-700 hover:!text-white">
                     Proceed to check out

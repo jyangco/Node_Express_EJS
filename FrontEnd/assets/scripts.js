@@ -43,7 +43,7 @@ $(function() {
 
     $('#increment').click(function() {
         var price = $(this).data('price')
-        if (count != 5) {
+        if (count != 99) {
             $('#decrement').prop('disabled', false)
             $('#increment').prop('disabled', false)
             $('#increment').siblings().css('opacity', '1')
@@ -78,25 +78,99 @@ $(function() {
     })
 })
 
-//Adding more quantity for items on the cart
+//Adding more or decreasing the quantity of items on the cart
 $(function() {
-    let totalPrice = $('#ttl').text()
-    let itemQty = $('#qty').text()
-    $('#incrementCrt').click(function () {
-        var itemID = $(this).data('id')
-        var qty = $(this).data('qty')
-        var price = $(this).data('price')
-        itemQty++
-        qty = itemQty
-        totalPrice = qty*price
-        $.ajax({                        
-            url: '/cart-quantity',
-            type: 'POST',
-            data: { id: itemID, quantity: qty, total: totalPrice },
-            success: function(response) {
-                $('#qty').text(itemQty)
-                $('#ttl').text(totalPrice)
-            },
-        })
+    let prcSum = $('#sum').text()
+    let numberOfItems = $('#NumOfItems').text()
+
+    // if (itemQty == 1) {
+    //     $('#incrementCrt').siblings().css('opacity', '0.5')
+    //     $('#decrementCrt').siblings().css('opacity', '1')
+    //     $('#decrementCrt').prop('disabled', true)
+    // }
+
+    $('#cartContainer').on('click', '#incrementCrt', function () {
+        let itemQty = $('#qty').text()
+        var ID = $(this).data('id')
+        var Img = $(this).data('img')
+        var Qty = $(this).data('qty')
+        var Ttl = $(this).data('ttl')
+        var Price = $(this).data('price')
+        var Name = $(this).data('name')
+        if (itemQty != 99) {
+            $('#incrementCrt').prop('disabled', false)
+            $('#decrementCrt').prop('disabled', false)
+            $('#incrementCrt').siblings().css('opacity', '1')
+            $('#decrementCrt').siblings().css('opacity', '1')
+            itemQty++
+            Qty = itemQty
+            Ttl = Qty*Price
+            prcSum = parseInt(prcSum) + Price
+            $.ajax({                        
+                url: `/cart-quantity-${ID}`,
+                type: 'PUT',
+                data: { 
+                    name: Name, 
+                    image: Img,
+                    price: Price, 
+                    quantity: Qty,
+                    total: Ttl
+                },
+                success: function(response) {
+                    numberOfItems++
+                    $('#qty').text(Qty)
+                    $('#cartContainer' > '#ttl').text(Ttl)
+                    $('#sum').text(prcSum)
+                    $('#NumOfItems').text(numberOfItems)
+                },
+            })
+        } else {
+            $('#decrementCrt').siblings().css('opacity', '0.5')
+            $('#incrementCrt').siblings().css('opacity', '1')
+            $('#decrementCrt').prop('disabled', false)
+            $('#incrementCrt').prop('disabled', true)
+        }
+    })
+
+    $('#decrementCrt').click(function () {
+        var ID = $(this).data('id')
+        var Img = $(this).data('img')
+        var Qty = $(this).data('qty')
+        var Ttl = $(this).data('ttl')
+        var Price = $(this).data('price')
+        var Name = $(this).data('name')
+        if (itemQty != 1) {
+            $('#incrementCrt').prop('disabled', false)
+            $('#decrementCrt').prop('disabled', false)
+            $('#incrementCrt').siblings().css('opacity', '1')
+            $('#decrementCrt').siblings().css('opacity', '1')
+            itemQty--
+            Qty = itemQty
+            Ttl = Qty*Price
+            prcSum = parseInt(prcSum) - Price
+            $.ajax({                        
+                url: `/cart-quantity-${ID}`,
+                type: 'PUT',
+                data: { 
+                    name: Name, 
+                    image: Img,
+                    price: Price, 
+                    quantity: Qty,
+                    total: Ttl
+                },
+                success: function(response) {
+                    numberOfItems--
+                    $('#qty').text(Qty)
+                    $('#ttl').text(Ttl)
+                    $('#sum').text(prcSum)
+                    $('#NumOfItems').text(numberOfItems)
+                },
+            })
+        } else {
+            $('#incrementCrt').siblings().css('opacity', '0.5')
+            $('#decrementCrt').siblings().css('opacity', '1')
+            $('#incrementCrt').prop('disabled', false)
+            $('#decrementCrt').prop('disabled', true)
+        }
     })
 })

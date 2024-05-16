@@ -6,17 +6,19 @@
     <ul class="flex justify-start flex-wrap">
         <% items.forEach(item => { %>
             <li class="w-25 p-2 rounded-lg hover:cursor-pointer hover:outline outline-2 outline-offset-2">
-                <a href="/product-<%= item.id %>" class="text-black flex flex-col p-2">
+                <div class="text-black flex flex-col p-2">
                     <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
                     <span id="itemName" class="text-4xl text-center font-bold"> <%= item.name %> </span>
                     <span class="text-xl text-start ms-10"> <%= item.desc %> </span>
                     <span class="text-2xl text-start ms-10"> $<%= item.price %> </span>
-                </a>
+                </div>
                 <div class="flex px-5">
                     <div class="w-75 text-center bg-dark hover:!bg-white text-white hover:!text-black outline me-2 rounded-lg">
-                        <button class="text-xl p-1 "> 
-                            BUY NOW 
-                        </button>
+                        <a class="text-decoration-none hover:text-black" href="/product-<%= item.id %>">
+                            <button class="text-xl p-1 "> 
+                                BUY NOW 
+                            </button>
+                        </a>
                     </div>
                     <div class="w-25 text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
                         <button class="addToCartBtn text-xl py-1 px-2"

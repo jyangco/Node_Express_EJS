@@ -13,9 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 app.use(express.static(directory))
-// app.get('/my-cart', function(req, res) {
-//     res.send('users')
-// })
 app.use(routes)
 
 app.listen(port, () => {

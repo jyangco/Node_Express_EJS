@@ -21,8 +21,15 @@ module.exports = {
         res.json({ message: 'Item added to cart successfully'})
     },
     updateCart: (req, res) => {
-        const { id, quantity, total } = req.body
-        const cartItems = CartModel.updateCart(id, quantity, total)
-        res.json( cartItems )
+        const { name, image, price, quantity, total } = req.body
+        const cartItem = {
+            name: name, 
+            image: image,
+            price: parseInt(price), 
+            quantity: parseInt(quantity),
+            total: parseInt(total)
+        }
+        CartModel.updateCart(req.params.id, cartItem)
+        res.json({ message: 'Item updated' })
     },
 }
