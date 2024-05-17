@@ -43,25 +43,18 @@ $(function() {
 
     $('#increment').click(function() {
         var price = $(this).data('price')
-        if (count != 99) {
-            $('#decrement').prop('disabled', false)
-            $('#increment').prop('disabled', false)
-            $('#increment').siblings().css('opacity', '1')
-            $('#decrement').siblings().css('opacity', '1')
-            count++
-            $('#qty').text(count)
-            $('#ttl').text(('$'+count * price))
-        } else {
-            $('#decrement').siblings().css('opacity', '0.5')
-            $('#increment').siblings().css('opacity', '1')
-            $('#decrement').prop('disabled', false)
-            $('#increment').prop('disabled', true)
-        }
+        $('#decrement').prop('disabled', false)
+        $('#increment').prop('disabled', false)
+        $('#increment').siblings().css('opacity', '1')
+        $('#decrement').siblings().css('opacity', '1')
+        count++
+        $('#qty').text(count)
+        $('#ttl').text(('$'+count * price))
     })
 
     $('#decrement').click(function() {
         var price = $(this).data('price')
-        if (count != 1) {
+        if (count >= 2) {
             $('#increment').prop('disabled', false)
             $('#decrement').prop('disabled', false)
             $('#increment').siblings().css('opacity', '1')
@@ -82,32 +75,21 @@ $(function() {
 $(function() {
     let prcSum = $('#sum').text()
     let numberOfItems = $('#NumOfItems').text()
-
-    // if (itemQty == 1) {
-    //     $('#incrementCrt').siblings().css('opacity', '0.5')
-    //     $('#decrementCrt').siblings().css('opacity', '1')
-    //     $('#decrementCrt').prop('disabled', true)
-    // }
-
     $('#cartContainer').on('click', '#incrementCrt', function () {
-        let itemQty = $('#qty').text()
         var ID = $(this).data('id')
         var Img = $(this).data('img')
         var Qty = $(this).data('qty')
         var Ttl = $(this).data('ttl')
         var Price = $(this).data('price')
         var Name = $(this).data('name')
-        if (itemQty != 99) {
+        // if (Qty <= 99) {
             $('#incrementCrt').prop('disabled', false)
             $('#decrementCrt').prop('disabled', false)
             $('#incrementCrt').siblings().css('opacity', '1')
             $('#decrementCrt').siblings().css('opacity', '1')
-            itemQty++
-            Qty = itemQty
-            Ttl = Qty*Price
-            prcSum = parseInt(prcSum) + Price
+            prcSum = parseInt(prcSum) + parseInt(Ttl)
             $.ajax({                        
-                url: `/cart-quantity-${ID}`,
+                url: `/add-cart-quantity-${ID}`,
                 type: 'PUT',
                 data: { 
                     name: Name, 
@@ -118,38 +100,37 @@ $(function() {
                 },
                 success: function(response) {
                     numberOfItems++
-                    $('#qty').text(Qty)
-                    $('#cartContainer' > '#ttl').text(Ttl)
+                    $('#qty').text(response.items.quantity)
+                    $('#ttl').text(response.items.total)
                     $('#sum').text(prcSum)
                     $('#NumOfItems').text(numberOfItems)
+        console.log(Qty)
+
                 },
             })
-        } else {
-            $('#decrementCrt').siblings().css('opacity', '0.5')
-            $('#incrementCrt').siblings().css('opacity', '1')
-            $('#decrementCrt').prop('disabled', false)
-            $('#incrementCrt').prop('disabled', true)
-        }
+        // } else {
+        //     $('#decrementCrt').siblings().css('opacity', '0.5')
+        //     $('#incrementCrt').siblings().css('opacity', '1')
+        //     $('#decrementCrt').prop('disabled', false)
+        //     $('#incrementCrt').prop('disabled', true)
+        // }
     })
 
-    $('#decrementCrt').click(function () {
+    $('#cartContainer').on('click', '#decrementCrt', function () {
         var ID = $(this).data('id')
         var Img = $(this).data('img')
         var Qty = $(this).data('qty')
         var Ttl = $(this).data('ttl')
         var Price = $(this).data('price')
         var Name = $(this).data('name')
-        if (itemQty != 1) {
+        // if (Qty != 1) {
             $('#incrementCrt').prop('disabled', false)
             $('#decrementCrt').prop('disabled', false)
             $('#incrementCrt').siblings().css('opacity', '1')
             $('#decrementCrt').siblings().css('opacity', '1')
-            itemQty--
-            Qty = itemQty
-            Ttl = Qty*Price
-            prcSum = parseInt(prcSum) - Price
+            prcSum = parseInt(prcSum) - parseInt(Ttl)
             $.ajax({                        
-                url: `/cart-quantity-${ID}`,
+                url: `/sub-cart-quantity-${ID}`,
                 type: 'PUT',
                 data: { 
                     name: Name, 
@@ -160,17 +141,17 @@ $(function() {
                 },
                 success: function(response) {
                     numberOfItems--
-                    $('#qty').text(Qty)
-                    $('#ttl').text(Ttl)
+                    $('#qty').text(response.items.quantity)
+                    $('#ttl').text(response.items.total)
                     $('#sum').text(prcSum)
                     $('#NumOfItems').text(numberOfItems)
                 },
             })
-        } else {
-            $('#incrementCrt').siblings().css('opacity', '0.5')
-            $('#decrementCrt').siblings().css('opacity', '1')
-            $('#incrementCrt').prop('disabled', false)
-            $('#decrementCrt').prop('disabled', true)
-        }
+        // } else {
+        //     $('#incrementCrt').siblings().css('opacity', '0.5')
+        //     $('#decrementCrt').siblings().css('opacity', '1')
+        //     $('#incrementCrt').prop('disabled', false)
+        //     $('#decrementCrt').prop('disabled', true)
+        // }
     })
 })

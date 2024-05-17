@@ -5,7 +5,7 @@
     </div>
     <ul class="flex justify-start flex-wrap">
         <% items.forEach(item => { %>
-            <li class="w-25 p-2 rounded-lg hover:cursor-pointer hover:outline outline-2 outline-offset-2">
+            <li class="w-25 p-2 rounded-lg hover:cursor-default hover:outline outline-2 outline-offset-2">
                 <div class="text-black flex flex-col p-2">
                     <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
                     <span id="itemName" class="text-4xl text-center font-bold"> <%= item.name %> </span>

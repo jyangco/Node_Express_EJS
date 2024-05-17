@@ -1,6 +1,7 @@
 const cart = []
 module.exports = {
     findAll: () => cart,
+    findById: (id) => cart.find(item => item.id == id),
     addToCart: (newCartItem) => {
         const cartItems = cart.find(item => item.id == newCartItem.id)
         if (cartItems) {
@@ -13,12 +14,20 @@ module.exports = {
             cart.push(newCartItem)
         }
     },
-    updateCart: (id, cartItem) => {
+    addCartQty: (id, cartItem) => {
         const cartToBeUpdated = cart.find(item => item.id == id)
         cartToBeUpdated.name = cartItem.name
         cartToBeUpdated.image = cartItem.image
         cartToBeUpdated.price = cartItem.price
-        cartToBeUpdated.quantity = cartItem.quantity
-        cartToBeUpdated.total = cartItem.total
+        cartToBeUpdated.quantity = cartToBeUpdated.quantity + 1
+        cartToBeUpdated.total = cartToBeUpdated.quantity * cartToBeUpdated.price
+    },
+    subCartQty: (id, cartItem) => {
+        const cartToBeUpdated = cart.find(item => item.id == id)
+        cartToBeUpdated.name = cartItem.name
+        cartToBeUpdated.image = cartItem.image
+        cartToBeUpdated.price = cartItem.price
+        cartToBeUpdated.quantity = cartToBeUpdated.quantity - 1
+        cartToBeUpdated.total = cartToBeUpdated.quantity * cartToBeUpdated.price
     }
 }
