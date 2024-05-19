@@ -46,4 +46,8 @@ module.exports = {
         const cartItems = CartModel.findById(req.params.id)
         res.json({ items: cartItems })
     },
+    resetCart: (req, res) => {
+        CartModel.resetCart
+        res.json({ message: "Thank You" })
+    }
 }

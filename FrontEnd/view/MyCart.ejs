@@ -84,12 +84,15 @@
                     %>
                     Cart Total: <span class="float-right"> $<span id="sum"> <%= sum %> </span> </span>
                 </span>
-                <button class="btn text-xl bg-warning rounded-full font-normal text-white my-3 hover:!bg-slate-700 hover:!text-white">
+                <button id="buyBtn" class="btn text-xl bg-warning rounded-full font-normal text-white my-3 hover:!bg-slate-700 hover:!text-white">
                     Proceed to check out
                 </button>
             </div>
         </div>
     </div>
 </body>
+<div class="fixed top-0 left-0 w-100 h-100" id="modal-popup" style="display: none; background-color: rgba(0,0,0,0.7);">
+    <%- include('../components/Modal'); %>
+</div>
 <script src="/scripts.js"></script>
 <%- include('../components/PartialFooter')%>

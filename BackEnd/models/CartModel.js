@@ -1,6 +1,7 @@
 const cart = []
 module.exports = {
     findAll: () => cart,
+    resetCart: () => cart = [],
     findById: (id) => cart.find(item => item.id == id),
     addToCart: (newCartItem) => {
         const cartItems = cart.find(item => item.id == newCartItem.id)

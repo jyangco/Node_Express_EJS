@@ -155,3 +155,19 @@ $(function() {
         // }
     })
 })
+
+//buy button
+$(function() {
+    $('#buyBtn').on('click', function(){
+        $('#modal-popup').css('display', 'block')
+        setTimeout(() => {
+            $.ajax({                        
+                url: 'reset-cart',
+                type: 'GET',
+                success: function(response) {
+                    window.history.back()
+                },
+            })
+        }, 3000)
+    })
+})
