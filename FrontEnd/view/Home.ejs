@@ -5,7 +5,7 @@
     </div>
     <ul class="flex justify-start flex-wrap">
         <% items.forEach(item => { %>
-            <li class="w-25 p-2 rounded-lg hover:cursor-default hover:outline outline-2 outline-offset-2">
+            <li class="w-50 p-2 rounded-lg hover:cursor-default hover:outline outline-2 outline-offset-2">
                 <div class="text-black flex flex-col p-2">
                     <img class="w-[200px] h-[200px] self-center" src="<%= item.image %>" alt="<%= item.name %>">
                     <span id="itemName" class="text-4xl text-center font-bold"> <%= item.name %> </span>
@@ -20,8 +20,8 @@
                             </button>
                         </a>
                     </div>
-                    <div class="w-25 text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
-                        <button class="addToCartBtn text-xl py-1 px-2"
+                    <div class="w-25 content-center text-center bg-dark hover:!bg-white text-white hover:!text-black outline rounded-lg">
+                        <button class="addToCartBtn text-xl"
                             data-id="<%=item.id%>" 
                             data-name="<%=item.name%>"
                             data-qty="1"
@@ -29,7 +29,7 @@
                             data-price="<%=item.price%>"
                             data-ttl="<%=item.price%>"
                         >
-                            <i class="fal fa-cart-arrow-down"></i>
+                            <i class="fal fa-cart-arrow-down self-center"></i>
                         </button>
                     </div>
                 </div>
